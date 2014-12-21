@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+
+  @(#)package.html	1.60 98/01/27
+
+-->
+</head>
+<body bgcolor="white">
+
+Swing Utilities.
+
+<h2>Package Specification</h2>
+
+<pre>
+Usage:
+            // 1 - text 20            
+            dc = new DefineComponent(20,SwingUtils.CNTL_TEXT,this,null);
+            SwingUtils.decoreWidget(f1, dc);
+            // 2 - text 100
+            dc = new DefineComponent(100,SwingUtils.CNTL_TEXT,this,null);
+            SwingUtils.decoreWidget(f2, dc);
+            // 3 - date 
+            dc = new DefineComponent(0,SwingUtils.CNTL_DATE,this,new DateVerifier(jlMessaggio));
+            SwingUtils.decoreWidget(f3, dc);
+            // 4 - time
+            dc = new DefineComponent(0,SwingUtils.CNTL_TIME,this,new TimeVerifier(jlMessaggio));
+            SwingUtils.decoreWidget(f4, dc);
+            // 5 - timestamp
+            dc = new DefineComponent(0,SwingUtils.CNTL_TIMESTAMP,this,new TimestampVerifier(jlMessaggio));
+            SwingUtils.decoreWidget(f5, dc);
+            // 6 - integer 2
+            dc = new DefineComponent(2,SwingUtils.CNTL_INTEGER,this,new IntegerVerifier(jlMessaggio));
+            SwingUtils.decoreWidget(f6, dc);
+            // 7 - integer 11
+            dc = new DefineComponent(11,SwingUtils.CNTL_INTEGER,this,new IntegerVerifier(jlMessaggio));
+            SwingUtils.decoreWidget(f7, dc);
+            // 8 - decimal 3 2
+            dc = new DefineComponent(6,SwingUtils.CNTL_DECIMAL,this,new DecimalVerifier(3,2,jlMessaggio));
+            SwingUtils.decoreWidget(f8, dc);
+            // 9 - decimal 9 5 
+            dc = new DefineComponent(15,SwingUtils.CNTL_DECIMAL,this,new DecimalVerifier(9,5,jlMessaggio));
+            SwingUtils.decoreWidget(f9, dc);
+</pre>
+<!-- ##### FILL IN ANY SPECS NEEDED BY JAVA COMPATIBILITY KIT ##### -->
+<!--
+<ul>
+  <li><a href="">##### REFER TO ANY FRAMEMAKER SPECIFICATION HERE #####</a>
+</ul>
+
+<h2>Related Documentation</h2>
+
+For overviews, tutorials, examples, guides, and tool documentation, please see:
+<ul>
+  <li><a href="">##### REFER TO NON-SPEC DOCUMENTATION HERE #####</a>
+</ul>
+-->
+<!-- Put @see and @since tags down here. -->
+
+</body>
+</html>
