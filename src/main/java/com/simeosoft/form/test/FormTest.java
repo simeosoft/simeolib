@@ -27,7 +27,6 @@ import com.simeosoft.swing.SwingUtils;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.logging.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
@@ -39,6 +38,8 @@ import javax.swing.JComboBox;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Test case of most of the com.simeosoft.form package components.
@@ -49,16 +50,14 @@ public class FormTest extends javax.swing.JFrame implements IFormListener, ItemL
     FormController fc;
     
     // DefineComponent dc;
-    Logger LOGGER = null;
+    static final Logger logger = LoggerFactory.getLogger(FormTest.class);
     /** Creates new form TestJFTF */
     public FormTest() {
         initComponents();
-        LOGGER = Logger.getLogger("SwingUtilsTest");
-        LOGGER.setLevel(Level.ALL);
         
         Locale.setDefault(new Locale("en","US"));        
         
-        fc = new FormController(this, jlMessage, LOGGER);
+        fc = new FormController(this, jlMessage, logger);
 
         this.setBounds(200, 200, 623,  569);
         defineComponent();

@@ -42,7 +42,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
@@ -51,6 +50,9 @@ import javax.swing.JTextArea;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.MaskFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * FormController is a component controller. Wraps itself on the
@@ -338,7 +340,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
         DateVerifier dv = new DateVerifier(this, mandatory);
         MaskFormatter mf = null;
         if (logger != null) {
-            logger.fine("building date Component");
+            logger.debug("building date Component");
         }
         try {
             // default date...
@@ -351,7 +353,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_FORMATTING") + e);
+                logger.warn(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_FORMATTING") + e);
             }
             throw new AddFieldException(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_CANTADD") + desc + ". " + e.getLocalizedMessage());
         }
@@ -465,7 +467,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
         TimeVerifier tv = new TimeVerifier(this, mandatory);
         MaskFormatter mf = null;
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("BUILD_TIME"));
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("BUILD_TIME"));
         }
         try {
             String pattern = "##:##";
@@ -476,7 +478,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             mf.install(jc);
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_FORMATTING") + e);
+                logger.warn(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_FORMATTING") + e);
             }
             throw new AddFieldException(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_CANTADD") + desc + ". " + e.getLocalizedMessage());
         }
@@ -507,7 +509,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
         TimestampVerifier tsv = new TimestampVerifier(this, mandatory);
         MaskFormatter mf = null;
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("BUILD_TIMESTAMP"));
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("BUILD_TIMESTAMP"));
         }
         try {
             String pattern = "##/##/#### ##:##:##";
@@ -518,7 +520,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             mf.install(jc);
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_FORMATTING") + e);
+                logger.warn(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_FORMATTING") + e);
             }
             throw new AddFieldException(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ERR_CANTADD") + desc + ". " + e.getLocalizedMessage());
         }
@@ -820,7 +822,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
      */
     public String formatBigDecimalToString(java.math.BigDecimal bd,int integers,int decimals) {
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ENTER_BIG_DECIMAL") + bd + java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("INTEGERS") + integers + java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("DECIMALS") + decimals);
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("ENTER_BIG_DECIMAL") + bd + java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("INTEGERS") + integers + java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("DECIMALS") + decimals);
         }
         StringBuilder sb1 = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
@@ -848,11 +850,11 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
         dfs.setDecimalSeparator(decimal_point.charAt(0));
         nf.setDecimalFormatSymbols(dfs);
         if (logger != null) {
-            logger.fine("il double: " + dval);
+            logger.debug("il double: " + dval);
         }
         String pattern = sb1.toString() + "." + sb2.toString();
         if (logger != null) {
-            logger.fine("pattern: " + pattern);
+            logger.debug("pattern: " + pattern);
         }
         nf.applyPattern(pattern);
         return nf.format(dval);
@@ -877,11 +879,11 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
      */
     public java.sql.Date formatStringToDate(String s) {
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
         }
         String s2 = s.replaceAll("[ _/:-]","");
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("AFTER_NORMALIZE") + s2 + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("AFTER_NORMALIZE") + s2 + ")");
         }
         if (s2.length() == 0) {
             return null;
@@ -892,7 +894,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             return new java.sql.Date(sd.getTime());
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning("exc: (" + e + ")");
+                logger.warn("exc: (" + e + ")");
             }
             return null;
         }
@@ -905,11 +907,11 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
      */
     public java.sql.Timestamp formatStringToTimestamp(String s) {
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
         }
         String s2 = s.replaceAll("[ _/:-]","");
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("AFTER_NORMALIZE") + s2 + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("AFTER_NORMALIZE") + s2 + ")");
         }
         if (s2.length() == 0) {
             return null;
@@ -920,7 +922,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             return new java.sql.Timestamp(sd.getTime());
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning("exc: (" + e + ")");
+                logger.warn("exc: (" + e + ")");
             }
             return null;
         }
@@ -933,11 +935,11 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
      */
     public java.sql.Time formatStringToTime(String s) {
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
         }
         String s2 = s.replaceAll("[ _/:-]","");
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("AFTER_NORMALIZE") + s2 + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("AFTER_NORMALIZE") + s2 + ")");
         }
         if (s2.length() == 0) {
             return null;
@@ -948,7 +950,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             return new java.sql.Time(sd.getTime());
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning("exc: (" + e + ")");
+                logger.warn("exc: (" + e + ")");
             }
             return null;
         }
@@ -966,7 +968,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             return new BigDecimal(0);
         }
         if (logger != null) {
-            logger.fine(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
+            logger.debug(java.util.ResourceBundle.getBundle("com/simeosoft/form/resources/form").getString("TRYING") + s + ")");
         }
 
         DecimalFormat nf = new DecimalFormat();
@@ -979,7 +981,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             return new BigDecimal(n.doubleValue(),new MathContext(precision,RoundingMode.HALF_UP));
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning("exc: (" + e + ")");
+                logger.warn("exc: (" + e + ")");
             }
             return new BigDecimal(0);
         }
@@ -1001,7 +1003,7 @@ public class FormController implements KeyListener, FocusListener, ItemListener,
             return n.intValue();
         } catch (Exception e) {
             if (logger != null) {
-                logger.warning("formatStringToInt exc: (" + e + ")");
+                logger.warn("formatStringToInt exc: (" + e + ")");
             }
             return 0;
         }
