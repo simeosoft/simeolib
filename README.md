@@ -1,6 +1,14 @@
 Note
 ====
 
+Version 2.2
+-----------
+- first github commit
+
+Versione 2.1
+------------
+- aggiunto metodo pack per liste
+
 Versione 2.0
 ------------
 - modificato logging con slf4j/logback
